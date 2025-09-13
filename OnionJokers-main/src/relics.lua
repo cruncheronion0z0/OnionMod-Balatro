@@ -120,7 +120,7 @@ SMODS.Consumable {
         if G.jokers then
             if #G.jokers.cards > 0 then
                 for i=1,#G.jokers.cards do
-                    if G.jokers.cards[1]:get_edition() == nil then
+                    if G.jokers.cards[i]:get_edition() == nil then
                         return true
                     end
                 end
