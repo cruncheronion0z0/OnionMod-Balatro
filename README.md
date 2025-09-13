@@ -3,8 +3,8 @@ A mod for balatro that aims to add more 'vanilla-styled' content into balatro!
 
 # WIP WARNING
 this project is still a work in progress!
-most textures are placeholders or unfinished, 
-but its playable!
+most textures are placeholders or unfinished,
+but it is playable!
 
 # What content is there?
 Currently, Onionmod adds:
