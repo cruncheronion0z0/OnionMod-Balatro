@@ -6693,49 +6693,6 @@ SMODS.Joker {
 	end
 }
 
---packed hand
-SMODS.Joker {
-    key = 'packed_hand',
-    loc_txt = {
-        name = 'Packed Hand',
-        text = {
-            '{C:attention}+#1# Hand Size{} while',
-            'in a {C:attention}Booster Pack{}'
-        }
-    },
-    config = {
-        extra = {gain = 5,trig = false},
-    },
-    loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.gain} }
-	end,
-    unlocked = true,
-	discovered = true, 
-    blueprint_compat = false,
-    perishable_compat = true, 
-	eternal_compat = true, 
-	rarity = 1,
-	atlas = 'OnionJokers',
-	pos = { x = 0, y = 0 },
-	cost = 5,
-    calculate = function(self, card, context)
-        if G.pack_cards ~= nil then
-            if #G.hand.cards > 0 and not G.pack_cards.cards and card.ability.extra.trig then
-                card.ability.extra.trig = false
-                G.hand:change_size(-1 * card.ability.extra.gain)
-                card_eval_status_text(card, 'jokers', 1, nil, nil, {message = "-"..tostring(card.ability.extra.gain).." Hand Size"})
-            end
-        end
-        if context.open_booster and context.card.config.center.draw_hand then
-            G.hand:change_size(card.ability.extra.gain)
-            card.ability.extra.trig = true
-            return {
-                message = "+"..tostring(card.ability.extra.gain).." Hand Size"
-            }
-        end
-    end
-}
-
 --instant noodles
 SMODS.Joker {
 	key = 'instant_noodles',

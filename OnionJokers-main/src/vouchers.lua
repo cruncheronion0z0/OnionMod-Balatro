@@ -125,7 +125,7 @@ SMODS.Voucher {
 		}
 	},
     pos = { x = 0, y = 0 },
-    config = { extra = {rate = 999}},--2} },
+    config = { extra = {rate = 1}},--2} },
     loc_vars = function(self, info_queue, card)
         return { vars = { } }
     end,
