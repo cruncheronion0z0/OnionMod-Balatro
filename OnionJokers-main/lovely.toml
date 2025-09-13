@@ -1,0 +1,88 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 12
+
+#bonus packs
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''if self.ability.set == "Booster" then*'''
+position = 'at'
+payload = '''
+if custom_can_open(self) and self.ability.set == "Booster" then
+'''
+match_indent = true
+
+#bonus packs
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''delayfac = delayfac or 1*'''
+position = 'after'
+payload = '''
+custom_consumeable_end()
+'''
+match_indent = true
+
+
+#blocklist prevents
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''G.CONTROLLER.locks.selling_card = true*'''
+position = 'after'
+payload = '''
+if G.jokers and G.GAME.used_vouchers.v_onio_blocklist then
+    print("sell detect")
+    if G.jokers.cards[#G.jokers.cards] == self then
+        print("rightmost detect, killing: "..tostring(self.config.center.key))
+        G.GAME.banned_keys[self.config.center.key] = true
+        card_eval_status_text(self, 'jokers', 1, nil, nil, {message = "Blocked!", colour = G.C.BLACK})
+    end
+end
+'''
+match_indent = true
+
+#clover tag pricing (1/3)
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''self.sell_cost = math.max(1, math.floor(self.cost/2)) + (self.ability.extra_value or 0)*'''
+position = 'after'
+payload = '''
+if self.ability.clovered then
+    if self.config.center.rarity == 1 then self.cost = 0 end
+    if self.config.center.rarity == 2 then self.cost = math.max(1,self.cost * 0.5) end
+    if self.config.center.rarity == 3 then self.cost = math.max(1,self.cost * 0.75)  end
+    self.cost = math.max(0,math.floor(self.cost))
+end
+'''
+match_indent = true
+
+#clover tag pricing (2/3)
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''local _blind_choice = G.blind_select_opts[string.lower(e.config.id)]*'''
+position = 'before'
+payload = '''
+if G.GAME.clover_data then
+    G.GAME.clover_data.trig = false
+end
+'''
+match_indent = true
+
+#clover tag pricing (3/3)
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''G.FUNCS.reroll_shop = function(e)*'''
+position = 'after'
+payload = '''
+if G.GAME.clover_data then
+    G.GAME.shop_free = false
+    G.GAME.clover_data.trig = false
+end
+'''
+match_indent = true
