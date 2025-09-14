@@ -16,6 +16,9 @@ SMODS.Tag {
 	},
     atlas = 'OnionTags',
     pos = { x = 0, y = 0 },
+    in_pool = function()
+        return false
+    end,
     apply = function(self, tag, context)
         if context.type == 'store_joker_modify' and G.shop then
             --local lock = self.ID
