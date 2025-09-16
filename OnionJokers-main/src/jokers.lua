@@ -7249,13 +7249,13 @@ SMODS.Joker {
 		text = {
             "Create a {C:dark_edition}Negative{} {C:attention}Fragile{} copy",
             "of all {C:money}sold{} {C:red}Non-{C:dark_edition}negative{} Jokers",
-            "{s:0.8,C:inactive}(Excluding {s:0.8,C:attention}Quija Board{s:0.8,C:inactive})",
+            "{s:0.8,C:inactive}(Excluding {s:0.8,C:attention}Quija Board{s:0.8,C:inactive}, {s:0.8,C:money}$0 {s:0.8,C:inactive}sell value)",
             "{C:inactive}({C:red}Destroyed{C:inactive} at end of round)"
         }
 	},
 	config = {},
     unlocked = true,  
-	discovered = true, 
+	discovered = true,
     blueprint_compat = false, 
     perishable_compat = true, 
 	eternal_compat = false, 
@@ -7281,6 +7281,7 @@ SMODS.Joker {
                     local k = context.card.config.center_key
                     local new_card = SMODS.add_card({set = "Joker", edition = "e_negative", key=k})
                     
+                    new_card.sell_cost = 0
                     G.GAME.joker_buffer = 0
                     SMODS.Stickers.onio_fragile:apply(new_card, true)
                     return {
