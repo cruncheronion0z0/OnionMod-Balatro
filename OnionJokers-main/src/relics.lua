@@ -277,7 +277,10 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         for i=1,card.ability.amount do
-            add_tag(Tag(pseudorandom_element(get_keys(G.P_TAGS),pseudoseed("tag"))))
+            local tags = get_keys(G.P_TAGS)
+            tags[indexOf(tags,"tag_orbital")] = nil
+            print(inspect(tags))
+            add_tag(Tag(pseudorandom_element(tags,pseudoseed("tag"))))
         end
     end
 }
